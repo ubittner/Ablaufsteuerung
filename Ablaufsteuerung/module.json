@@ -1,0 +1,14 @@
+{
+    "id": "{0559B287-1052-A73E-B834-EBD9B62CB938}",
+    "name": "Ablaufsteuerung",
+    "type": 3,
+    "vendor": "UB",
+    "aliases": [
+        "Ablaufsteuerung"
+    ],
+    "url": "https://github.com/ubittner/Ablaufsteuerung/tree/main/Ablaufsteuerung",
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "AST"
+}

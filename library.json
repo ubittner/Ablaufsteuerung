@@ -1,0 +1,12 @@
+{
+    "id": "{0DF8D60F-8E07-8BAE-EF95-7298743FCEF6}",
+    "name": "Ablaufsteuerung",
+    "author": "Ulrich Bittner",
+    "url": "https://github.com/ubittner/Ablaufsteuerung",
+    "compatibility": {
+        "version": "6.1"
+    },
+    "version": "7.0",
+    "build": 1,
+    "date": 1662617816
+}
