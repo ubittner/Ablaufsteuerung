@@ -13,8 +13,8 @@ jobs:
       with:
           submodules: true
 
-    - name: Install latest PHPUnit
-      run: wget https://phar.phpunit.de/phpunit.phar
+    - name: Install PHPUnit
+      run: wget https://phar.phpunit.de/phpunit-9.6.3.phar
 
     - name: Run Tests
-      run: phpdbg -qrr phpunit.phar tests --configuration tests/phpunit.xml
+      run: phpdbg -qrr phpunit-9.6.3.phar tests --configuration tests/phpunit.xml
