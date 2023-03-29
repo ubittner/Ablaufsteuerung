@@ -119,19 +119,6 @@ trait AST_Config
             ]
         ];
 
-        //Functions
-        $form['elements'][] = [
-            'type'    => 'ExpansionPanel',
-            'caption' => 'Funktionen',
-            'items'   => [
-                [
-                    'type'    => 'CheckBox',
-                    'name'    => 'EnableActive',
-                    'caption' => 'Aktiv (Schalter im WebFront)'
-                ]
-            ]
-        ];
-
         //Semaphore
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
@@ -149,6 +136,30 @@ trait AST_Config
                     'caption' => 'Schaltverzögerung',
                     'minimum' => 1,
                     'suffix'  => 'Millisekunden'
+                ]
+            ]
+        ];
+
+        //Visualisation
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'caption' => 'Visualisierung',
+            'items'   => [
+                [
+                    'type'    => 'Label',
+                    'caption' => 'WebFront',
+                    'bold'    => true,
+                    'italic'  => true
+                ],
+                [
+                    'type'    => 'Label',
+                    'caption' => 'Anzeigeoptionen',
+                    'italic'  => true
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableActive',
+                    'caption' => 'Aktiv'
                 ]
             ]
         ];
