@@ -53,7 +53,7 @@ Externe Aktion ------------->| Ablaufsteuerung (Modul) |
 
 #### 4.1 Befehle ausführen
 
-```
+```text
 AST_ExecuteCommands(integer integer INSTANCE_ID, string COMMANDS);
 ```
 
@@ -66,7 +66,7 @@ Der Befehl liefert keinen Rückgabewert.
 
 Beispiel für einen json-codierten String mit den Befehlen:  
 
-```
+```php
 $id = 98765;
 $AcousticSignal = 0;
 $OpticalSignal = 0;
@@ -78,11 +78,11 @@ $commands[] = '@HM_WriteValueInteger(' . $id . ", 'ACOUSTIC_ALARM_SELECTION', " 
 $commands[] = '@HM_WriteValueInteger(' . $id . ", 'OPTICAL_ALARM_SELECTION', " . $OpticalSignal . ');';
 $commands[] = '@HM_WriteValueInteger(' . $id . ", 'DURATION_UNIT', " . $DurationUnit . ');';
 $commands[] = '@HM_WriteValueInteger(' . $id . ", 'DURATION_VALUE', " . $DurationValue . ');';
-
 ```
 
-Beispiel:  
-
->AST_ExecuteCommands(12345, json_encode($commands));
+**Beispiel**:  
+```php
+AST_ExecuteCommands(12345, json_encode($commands));
+```
 
 ---                       
