@@ -23,9 +23,9 @@ class Ablaufsteuerung extends IPSModule
     use AST_Commands;
 
     //Constants
-    private const MODULE_NAME = 'Ablaufsteuerung';
+    private const LIBRARY_GUID = '{0DF8D60F-8E07-8BAE-EF95-7298743FCEF6}';
+    private const MODULE_GUID = '{0559B287-1052-A73E-B834-EBD9B62CB938}';
     private const MODULE_PREFIX = 'AST';
-    private const MODULE_VERSION = '7.0-1, 08.09.2022';
 
     public function Create()
     {
