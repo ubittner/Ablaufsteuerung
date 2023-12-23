@@ -1,15 +1,16 @@
 <?php
 
 /**
- * @project       Ablaufsteuerung/Ablaufsteuerung
+ * @project       Ablaufsteuerung/Ablaufsteuerung/
  * @file          module.php
  * @author        Ulrich Bittner
- * @copyright     2022 Ulrich Bittner
+ * @copyright     2023 Ulrich Bittner
  * @license       https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
 /** @noinspection PhpRedundantMethodOverrideInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection SpellCheckingInspection */
 /** @noinspection PhpUnused */
 
 declare(strict_types=1);
@@ -19,7 +20,7 @@ include_once __DIR__ . '/helper/AST_autoload.php';
 class Ablaufsteuerung extends IPSModule
 {
     //Helper
-    use AST_Config;
+    use AST_ConfigurationForm;
     use AST_Commands;
 
     //Constants
