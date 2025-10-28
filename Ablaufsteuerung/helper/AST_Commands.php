@@ -49,9 +49,9 @@ trait AST_Commands
             return;
         }
         //Add to queue
-        $queueList = json_decode($this->ReadAttributeString('Queue'), true);
+        $queueList = json_decode($this->ReadAttributeString('Queue'), true); //array
         $queueList[] = $Commands;
-        $this->WriteAttributeString('Queue', json_encode($queueList));
+        $this->WriteAttributeString('Queue', json_encode($queueList)); //string
         //Leave semaphore for adding commands to queue
         $this->UnlockSemaphore('Queue');
 
@@ -82,7 +82,7 @@ trait AST_Commands
         $this->WriteAttributeBoolean('ProcessingQueue', true);
         $this->SendDebug(__FUNCTION__, 'Die Befehlsabarbeitung wird gestartet', 0);
 
-        $commands = '';
+        $commands = null;
 
         ########## Queue
 
@@ -96,7 +96,7 @@ trait AST_Commands
         }
 
         //Read queue
-        $queueList = json_decode($this->ReadAttributeString('Queue'), true);
+        $queueList = json_decode($this->ReadAttributeString('Queue'), true); //array
         if (array_key_exists(0, $queueList)) {
             $commands = $queueList[0];
             unset($queueList[0]);
@@ -108,10 +108,15 @@ trait AST_Commands
         $this->UnlockSemaphore('Queue');
 
         //Execute commands
-        if ($commands != '') {
-            foreach (json_decode($commands, true) as $command) {
+        if (isset($commands)) {
+            foreach (json_decode($commands, true) as $command) { //array
                 $this->SendDebug(__FUNCTION__, 'Befehl: ' . $command, 0);
                 IPS_RunScriptText($command);
+                if ($this->ReadPropertyBoolean('UseCommandLog')) {
+                    $now = new DateTime();
+                    $time = $now->format('d.m.Y, H:i:s.v'); // 'v' = milliseconds (PHP 7.0+)
+                    $this->UpdateLastCommands($time . ' ' . $command);
+                }
                 IPS_Sleep(50);
             }
         }
@@ -160,5 +165,34 @@ trait AST_Commands
     {
         @IPS_SemaphoreLeave(__CLASS__ . '.' . $this->InstanceID . '.' . $Name);
         $this->SendDebug(__FUNCTION__, 'Semaphore ' . $Name . ' unlocked', 0);
+    }
+
+    ##### Command Logging
+
+    private function UpdateLastCommands(string $Command): void
+    {
+        if ($this->CheckMaintenance()) {
+            return;
+        }
+        //Check the number of commands to be displayed.
+        $amountOfCommands = $this->ReadPropertyInteger('AmountOfCommands');
+        if ($amountOfCommands > 0) {
+            if ($amountOfCommands == 1) {
+                $this->SetValue('LastCommands', $Command);
+            } else {
+                $content = array_merge(array_filter(explode("\n", $this->GetValue('LastCommands'))));
+                foreach ($content as $key => $command) {
+                    //Delete empty message hint
+                    if (strpos($command, 'Keine Befehle vorhanden!') !== false) {
+                        unset($content[$key]);
+                    }
+                }
+                $entries = $amountOfCommands - 1;
+                array_splice($content, $entries);
+                array_unshift($content, $Command);
+                $newContent = implode("\n", $content);
+                $this->SetValue('LastCommands', $newContent);
+            }
+        }
     }
 }

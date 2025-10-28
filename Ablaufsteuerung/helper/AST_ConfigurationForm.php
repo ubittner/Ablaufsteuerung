@@ -34,7 +34,7 @@ trait AST_ConfigurationForm
      */
     public function ExpandExpansionPanels(bool $State): void
     {
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $this->UpdateFormField('Panel' . $i, 'expanded', $State);
         }
     }
@@ -178,16 +178,42 @@ trait AST_ConfigurationForm
             ]
         ];
 
-        //Visualisation
+        //Last commands
         $form['elements'][] = [
             'type'    => 'ExpansionPanel',
             'name'    => 'Panel3',
+            'caption' => 'Befehle',
+            'items'   => [
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'UseCommandLog',
+                    'caption' => 'Befehle protokollieren'
+                ],
+                [
+                    'type'    => 'NumberSpinner',
+                    'name'    => 'AmountOfCommands',
+                    'caption' => 'Anzahl Befehle',
+                    'minimum' => 1,
+                    'maximum' => 50
+                ]
+            ]
+        ];
+
+        //Visualisation
+        $form['elements'][] = [
+            'type'    => 'ExpansionPanel',
+            'name'    => 'Panel4',
             'caption' => 'Visualisierung',
             'items'   => [
                 [
                     'type'    => 'CheckBox',
                     'name'    => 'EnableActive',
                     'caption' => 'Aktiv'
+                ],
+                [
+                    'type'    => 'CheckBox',
+                    'name'    => 'EnableLastCommands',
+                    'caption' => 'Letzte Befehle'
                 ]
             ]
         ];

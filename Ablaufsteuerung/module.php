@@ -36,9 +36,12 @@ class Ablaufsteuerung extends IPSModule
         ########## Properties
 
         $this->RegisterPropertyString('Note', '');
-        $this->RegisterPropertyBoolean('EnableActive', false);
         $this->RegisterPropertyInteger('Attempts', 1000);
         $this->RegisterPropertyInteger('SwitchingDelay', 250);
+        $this->RegisterPropertyBoolean('UseCommandLog', true);
+        $this->RegisterPropertyInteger('AmountOfCommands', 30);
+        $this->RegisterPropertyBoolean('EnableActive', false);
+        $this->RegisterPropertyBoolean('EnableLastCommands', true);
 
         ########## Variables
 
@@ -48,6 +51,13 @@ class Ablaufsteuerung extends IPSModule
         $this->EnableAction('Active');
         if (!$id) {
             $this->SetValue('Active', true);
+        }
+
+        //Last commands
+        $id = @$this->GetIDForIdent('LastCommands');
+        $this->RegisterVariableString('LastCommands', 'Letzte Befehle', '~TextBox', 20);
+        if (!$id) {
+            IPS_SetIcon($this->GetIDForIdent('LastCommands'), 'Information');
         }
 
         ########## Attributes
@@ -75,6 +85,7 @@ class Ablaufsteuerung extends IPSModule
 
         //WebFront options
         IPS_SetHidden($this->GetIDForIdent('Active'), !$this->ReadPropertyBoolean('EnableActive'));
+        IPS_SetHidden($this->GetIDForIdent('LastCommands'), !$this->ReadPropertyBoolean('EnableLastCommands'));
 
         $this->WriteAttributeBoolean('ProcessingQueue', false);
         $this->WriteAttributeString('Queue', '[]');
